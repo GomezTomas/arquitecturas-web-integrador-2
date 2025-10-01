@@ -1,4 +1,6 @@
 package repository;
 
-public interface CarreraRepository {
+import entity.Carrera;
+
+public interface CarreraRepository extends Repository<Carrera> {
 }
