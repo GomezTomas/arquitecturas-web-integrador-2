@@ -1,18 +1,30 @@
 package entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class EstudianteCarrera {
+    @Id
     private int id;
-    private int idEstudiante;
-    private int idCarrera;
+    @ManyToOne
+    private Estudiante estudiante;
+    @ManyToOne
+    private Carrera carrera;
+    @Column
     private int inscripcion;
+    @Column
     private int graduacion;
+    @Column
     private int antiguedad;
     public EstudianteCarrera(){}
 
-    public EstudianteCarrera(int id, int idEstudiante, int idCarrera, int inscripcion, int graduacion, int antiguedad) {
+    public EstudianteCarrera(int id, Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
         this.id = id;
-        this.idEstudiante = idEstudiante;
-        this.idCarrera = idCarrera;
+        this.estudiante = estudiante;
+        this.carrera = carrera;
         this.inscripcion = inscripcion;
         this.graduacion = graduacion;
         this.antiguedad = antiguedad;
@@ -26,20 +38,20 @@ public class EstudianteCarrera {
         this.id = id;
     }
 
-    public int getIdEstudiante() {
-        return idEstudiante;
+    public Estudiante getEstudiante() {
+        return estudiante;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
-        this.idEstudiante = idEstudiante;
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 
-    public int getIdCarrera() {
-        return idCarrera;
+    public Carrera getCarrera() {
+        return carrera;
     }
 
-    public void setIdCarrera(int idCarrera) {
-        this.idCarrera = idCarrera;
+    public void setIdCarrera(Carrera carrera) {
+        this.carrera = carrera;
     }
 
     public int getInscripcion() {

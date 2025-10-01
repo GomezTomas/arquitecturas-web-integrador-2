@@ -1,19 +1,19 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Carrera {
 
     @Id
-    @Column
     private int id;
+    @Column
     private String carrera;
+    @Column
     private int duracion;
-
-     @ManyToOne
-     @JoinColumn
-     private EstudianteCarrera estudianteCarrera;
+    @OneToMany(mappedBy = "carrera")
+    private List<EstudianteCarrera> estudianteCarrera;
 
     public Carrera() {
     }
