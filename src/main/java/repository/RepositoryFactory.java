@@ -10,10 +10,10 @@ public class RepositoryFactory {
     public CarreraRepository getCarreraRepository(EntityManager em) {
         return CarreraRepositoryImpl.getInstance(em);
     }
-    public EstudianteRepository getCarreraRepository(EntityManager em) {
+    public EstudianteRepository getEstudianteRepository(EntityManager em) {
         return EstudianteRepositoryImpl.getInstance(em);
     }
-    public EstudianteCarreraRepository getCarreraRepository(EntityManager em) {
+    public EstudianteCarreraRepository getEstudianteCarreraRepository(EntityManager em) {
         return EstudianteCarreraRepositoryImpl.getInstance(em);
     }
 }
