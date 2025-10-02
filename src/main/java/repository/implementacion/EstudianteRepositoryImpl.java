@@ -28,6 +28,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     public Estudiante findById(int id) {
         em.getTransaction().begin();
         Estudiante estudiante = em.find(Estudiante.class, id);
+        em.getTransaction().commit();
         return estudiante;
     }
 
@@ -50,6 +51,5 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
        em.getTransaction().begin();
        em.merge(estudiante);
        em.getTransaction().commit();
-
     }
 }
