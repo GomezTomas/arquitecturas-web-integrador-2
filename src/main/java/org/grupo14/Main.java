@@ -7,6 +7,7 @@ import service.Servicios;
 public class Main {
     public static void main(String[] args) {
         Servicios servicio = new Servicios();
-        servicio.cargarDatos();
+//        servicio.cargarDatos();
+        System.out.println(servicio.obtenerEstudiantesOrdenados());
     }
 }

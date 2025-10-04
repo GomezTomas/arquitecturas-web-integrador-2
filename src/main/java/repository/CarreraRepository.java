@@ -5,5 +5,5 @@ import entity.Carrera;
 import java.util.List;
 
 public interface CarreraRepository extends Repository<Carrera> {
-    List<Carrera> carrerasConEstudiantes();
+//    List<Carrera> carrerasConEstudiantes();
 }

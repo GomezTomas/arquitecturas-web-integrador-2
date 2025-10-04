@@ -39,11 +39,11 @@ public class Servicios {
     }
     //a) dar de alta un estudiante
     public void altaEstudiante(Estudiante estudiante){
-        er.darDeAlta(estudiante);
+//        er.darDeAlta(estudiante);
     }
     //b) matricular un estudiante en una carrera
     public void matricularEstudiante(Estudiante estudiante, Carrera carrera){
-        ecr.matricular(estudiante, carrera);
+//        ecr.matricular(estudiante, carrera);
     }
     //c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
     public List<Estudiante> obtenerEstudiantesOrdenados(String orden){
@@ -57,24 +57,32 @@ public class Servicios {
         }
         return er.obtenerEstudiantesOrdenados(ordenFinal);
     }
+
+    public List<Estudiante> obtenerEstudiantesOrdenados(){
+       return  obtenerEstudiantesOrdenados("apellido");
+    }
     //d) recuperar un estudiante, en base a su número de libreta universitaria.
     public Estudiante obtenerEstudiantePorLU(int lu){
-        return er.findByLU(lu);
+//        return er.findByLU(lu);
+        return null;
     }
     //e) recuperar todos los estudiantes, en base a su género.
     public List<Estudiante> obtenerEstudiantesPorGenero(String genero){
         //las opciones pueden ser m, f, masculino, femenino, male, female
         //if m, masc, masculino, male = male.
         //if f, fem, femenino, female = female.
-        return er.findByGenero(genero);
+//        return er.findByGenero(genero);
+        return null;
     }
     //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     public List<Carrera> obtenerCarrerasConEstudiantesInscriptos(){
-        return cr.carrerasConEstudiantes();
+//        return cr.carrerasConEstudiantes();
+        return null;
     }
     //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
-        return er.findByCarreraCiudad(carrera, ciudad);
+//        return er.findByCarreraCiudad(carrera, ciudad);
+        return null;
     }
 
 }

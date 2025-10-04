@@ -6,6 +6,8 @@ import repository.CarreraRepository;
 import repository.EstudianteRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository {
     private EntityManager em;
@@ -51,5 +53,16 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
        em.getTransaction().begin();
        em.merge(estudiante);
        em.getTransaction().commit();
+    }
+
+
+    @Override
+    public List<Estudiante> obtenerEstudiantesOrdenados(String orden) {
+        em.getTransaction().begin();
+        String o = "apellido";
+        String query = "SELECT e FROM Estudiante e ORDER BY e."+o;
+        Query q = em.createQuery(query,  Estudiante.class);
+//        q.setParameter("orden", o);
+        return q.getResultList();
     }
 }

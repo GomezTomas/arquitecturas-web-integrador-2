@@ -5,5 +5,5 @@ import entity.Estudiante;
 import entity.EstudianteCarrera;
 
 public interface EstudianteCarreraRepository extends Repository<EstudianteCarrera> {
-    public void matricular(Estudiante estudiante, Carrera carrera);
+//    public void matricular(Estudiante estudiante, Carrera carrera);
 }

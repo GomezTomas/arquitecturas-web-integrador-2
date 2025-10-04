@@ -94,4 +94,11 @@ public class Estudiante {
     public void setLU(int LU) {
         this.LU = LU;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "apellido='" + apellido + '\'' +
+                '}';
+    }
 }
