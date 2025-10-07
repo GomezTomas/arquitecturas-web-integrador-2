@@ -1,12 +1,11 @@
 package repository.implementacion;
 
-import entity.Carrera;
 import entity.Estudiante;
-import repository.CarreraRepository;
 import repository.EstudianteRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository {
@@ -63,6 +62,15 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         String query = "SELECT e FROM Estudiante e ORDER BY e."+o;
         Query q = em.createQuery(query,  Estudiante.class);
 //        q.setParameter("orden", o);
+        return q.getResultList();
+    }
+
+    public List<Estudiante> obtenerEstudiantesPorGenero(String genero){
+        em.getTransaction().begin();
+        String query = "SELECT e FROM Estudiante e WHERE e.genero = :genero";
+        //TypedQuery<Estudiante> → evita tener que hacer cast al tipo de resultado.
+        TypedQuery<Estudiante> q = em.createQuery(query, Estudiante.class);
+        q.setParameter("genero", genero);
         return q.getResultList();
     }
 }

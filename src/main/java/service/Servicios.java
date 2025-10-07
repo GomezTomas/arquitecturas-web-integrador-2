@@ -8,10 +8,8 @@ import repository.CarreraRepository;
 import repository.EstudianteCarreraRepository;
 import repository.EstudianteRepository;
 import repository.RepositoryFactory;
-import repository.implementacion.EstudianteCarreraRepositoryImpl;
 
 import javax.persistence.EntityManager;
-import java.io.IOException;
 import java.util.List;
 
 public class Servicios {
@@ -61,18 +59,10 @@ public class Servicios {
     public List<Estudiante> obtenerEstudiantesOrdenados(){
        return  obtenerEstudiantesOrdenados("apellido");
     }
-    //d) recuperar un estudiante, en base a su número de libreta universitaria.
-    public Estudiante obtenerEstudiantePorLU(int lu){
-//        return er.findByLU(lu);
-        return null;
-    }
+
     //e) recuperar todos los estudiantes, en base a su género.
     public List<Estudiante> obtenerEstudiantesPorGenero(String genero){
-        //las opciones pueden ser m, f, masculino, femenino, male, female
-        //if m, masc, masculino, male = male.
-        //if f, fem, femenino, female = female.
-//        return er.findByGenero(genero);
-        return null;
+        return er.obtenerEstudiantesPorGenero(genero);
     }
     //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     public List<Carrera> obtenerCarrerasConEstudiantesInscriptos(){
