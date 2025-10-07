@@ -1,5 +1,6 @@
 package repository.implementacion;
 
+import DTO.EstudianteDTO;
 import entity.Carrera;
 import entity.Estudiante;
 import entity.Identificador.Identificador;
@@ -8,6 +9,7 @@ import repository.EstudianteRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository {
@@ -56,22 +58,28 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 
 
     @Override
-    public List<Estudiante> obtenerEstudiantesOrdenados(String orden) {
+    public List<EstudianteDTO> obtenerEstudiantesOrdenados(String orden) {
         em.getTransaction().begin();
-        String o = "apellido";
-        String query = "SELECT e FROM Estudiante e ORDER BY e."+o;
-        Query q = em.createQuery(query,  Estudiante.class);
-//        q.setParameter("orden", o);
-        return q.getResultList();
+        String query = "SELECT e FROM Estudiante e ORDER BY e."+orden;
+        TypedQuery<Estudiante> q = em.createQuery(query,  Estudiante.class);
+        List<EstudianteDTO> estudianteDTO = new ArrayList<>();
+        for(Estudiante estudiante : q.getResultList()){
+            estudianteDTO.add(new EstudianteDTO(estudiante.getNombre(), estudiante.getApellido()));
+        }
+        return estudianteDTO;
     }
 
-    public List<Estudiante> obtenerEstudiantesPorGenero(String genero){
-
+    @Override
+    public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero){
         String query = "SELECT e FROM Estudiante e WHERE e.genero = :genero";
         //TypedQuery<Estudiante> → evita tener que hacer cast al tipo de resultado.
         TypedQuery<Estudiante> q = em.createQuery(query, Estudiante.class);
         q.setParameter("genero", genero);
-        return q.getResultList();
+        List<EstudianteDTO> estudianteDTO = new ArrayList<>();
+        for(Estudiante estudiante : q.getResultList()){
+            estudianteDTO.add(new EstudianteDTO(estudiante.getNombre(), estudiante.getApellido()));
+        }
+        return estudianteDTO;
     }
 
     public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){

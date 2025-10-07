@@ -1,5 +1,6 @@
 package service;
 
+import DTO.EstudianteDTO;
 import entity.Carrera;
 import entity.Estudiante;
 import helper.CSVReader;
@@ -46,10 +47,10 @@ public class Servicios {
 //        ecr.matricular(estudiante, carrera);
     }
     //c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
-    public List<Estudiante> obtenerEstudiantesOrdenados(String orden){
+    public List<EstudianteDTO> obtenerEstudiantesOrdenados(String orden){
         //TODO CHECK
         //chequear que el orden sea posible, sino ordenar por apellido.
-        String[] criterios = {"nombre", "apellido"};
+        String[] criterios = {"DNI","nombre", "apellido", "edad", "genero", "ciudad", "LU"};
         String ordenFinal = "apellido";
         for(String criterio : criterios){
             if(criterio.equals(orden)){
@@ -59,7 +60,7 @@ public class Servicios {
         return er.obtenerEstudiantesOrdenados(ordenFinal);
     }
 
-    public List<Estudiante> obtenerEstudiantesOrdenados(){
+    public List<EstudianteDTO> obtenerEstudiantesOrdenados(){
        return  obtenerEstudiantesOrdenados("apellido");
     }
     //TODO
@@ -69,7 +70,7 @@ public class Servicios {
         return null;
     }
     //e) recuperar todos los estudiantes, en base a su género.
-    public List<Estudiante> obtenerEstudiantesPorGenero(String genero){
+    public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero){
         return er.obtenerEstudiantesPorGenero(genero);
     }
     //TODO

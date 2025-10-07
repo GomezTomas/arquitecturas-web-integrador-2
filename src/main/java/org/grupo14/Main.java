@@ -9,8 +9,11 @@ public class Main {
     public static void main(String[] args) {
         Servicios servicios = new Servicios();
 //        servicio.cargarDatos();
-//        System.out.println(servicio.obtenerEstudiantesOrdenados());
-//        System.out.println(servicios.obtenerEstudiantesPorGenero("Polygender"));
-        System.out.println(servicios.obtenerEstudiantesPorCarreraCiudad(new Carrera(2, "test", 0), "Idvor"));
+        //Las opciones son "DNI", "nombre", "apellido", "edad", "genero", "ciudad", "LU"
+        //cualquier otra opcion o valor nulo ordena por apellido
+//        System.out.println(servicios.obtenerEstudiantesOrdenados("LU"));
+        //Las opciones son "Agender", "Bigender", "Female", "Genderfluid", "Male", "Masculino", "Non-binary", "Polygender"
+        System.out.println(servicios.obtenerEstudiantesPorGenero("Polygender"));
+//        System.out.println(servicios.obtenerEstudiantesPorCarreraCiudad(new Carrera(2, "test", 0), "Idvor"));
     }
 }
