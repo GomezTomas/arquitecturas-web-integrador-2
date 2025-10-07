@@ -1,5 +1,6 @@
 package repository.implementacion;
 
+import entity.Carrera;
 import entity.Estudiante;
 import repository.EstudianteRepository;
 
@@ -66,11 +67,19 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     }
 
     public List<Estudiante> obtenerEstudiantesPorGenero(String genero){
-        em.getTransaction().begin();
+
         String query = "SELECT e FROM Estudiante e WHERE e.genero = :genero";
         //TypedQuery<Estudiante> → evita tener que hacer cast al tipo de resultado.
         TypedQuery<Estudiante> q = em.createQuery(query, Estudiante.class);
         q.setParameter("genero", genero);
+        return q.getResultList();
+    }
+
+    public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
+        String query = "SELECT e FROM Estudiante e JOIN EstudianteCarrera  ec ON ec.estudiante.DNI WHERE ec.carrera.id = :carrera AND e.ciudad = :ciudad ";
+        TypedQuery<Estudiante> q = em.createQuery(query, Estudiante.class);
+        q.setParameter("carrera", carrera);
+        q.setParameter("ciudad", ciudad);
         return q.getResultList();
     }
 }

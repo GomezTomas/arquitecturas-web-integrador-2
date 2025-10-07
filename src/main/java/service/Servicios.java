@@ -71,8 +71,8 @@ public class Servicios {
     }
     //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
-//        return er.findByCarreraCiudad(carrera, ciudad);
-        return null;
+//
+        return er.obtenerEstudiantesPorCarreraCiudad(carrera, ciudad);
     }
 
 }
