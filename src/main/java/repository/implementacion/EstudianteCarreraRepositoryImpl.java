@@ -62,13 +62,13 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
     }
     public List<Carrera> getCarrerasConEstudiantes(){
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Carrera> cq = cb.createQuery(Carrera.class);
-        Root<Carrera> carrera = cq.from(Carrera.class);
-        Join<Object, Object> inscripciones = carrera.join("inscripciones", JoinType.INNER);
-
-        cq.select(carrera).distinct(true);
-        return em.createQuery(cq).getResultList();
+        String jpql = """
+        SELECT DISTINCT c
+        FROM Carrera c
+        JOIN c.carrera i
+    """;
+        return em.createQuery(jpql, Carrera.class)
+                .getResultList();
     }
 
 }
