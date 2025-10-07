@@ -25,8 +25,6 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         return instance;
     }
 
-
-
     @Override
     public Estudiante findById(Identificador id) {
         em.getTransaction().begin();
@@ -77,7 +75,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     }
 
     public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
-        String query = "SELECT e FROM Estudiante e JOIN EstudianteCarrera  ec ON ec.estudiante.DNI WHERE ec.carrera.id = :carrera AND e.ciudad = :ciudad ";
+        String query = "SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON ec.estudiante.DNI = e.DNI WHERE ec.carrera = :carrera AND e.ciudad = :ciudad";
         TypedQuery<Estudiante> q = em.createQuery(query, Estudiante.class);
         q.setParameter("carrera", carrera);
         q.setParameter("ciudad", ciudad);
