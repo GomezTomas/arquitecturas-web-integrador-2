@@ -4,10 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Carrera {
+public class Carrera{
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column
     private String carrera;
     @Column
@@ -17,17 +18,17 @@ public class Carrera {
 
     public Carrera() {
     }
-    public Carrera(int id, String carrera, int duracion) {
+    public Carrera(Long id, String carrera, int duracion) {
         this.id = id;
         this.carrera = carrera;
         this.duracion = duracion;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

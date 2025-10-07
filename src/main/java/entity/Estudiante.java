@@ -1,15 +1,13 @@
 package entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Estudiante {
+public class Estudiante{
     @Id
-    private int DNI;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long DNI;
     @Column
     private String nombre;
     @Column
@@ -29,7 +27,7 @@ public class Estudiante {
     public Estudiante() {
     }
 
-    public Estudiante(int DNI, String nombre, String apellido, int edad, String genero, String ciudad, int LU) {
+    public Estudiante(Long DNI, String nombre, String apellido, int edad, String genero, String ciudad, int LU) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -39,11 +37,11 @@ public class Estudiante {
         this.LU = LU;
     }
 
-    public int getDNI() {
+    public Long getDNI() {
         return DNI;
     }
 
-    public void setDNI(int DNI) {
+    public void setDNI(Long DNI) {
         this.DNI = DNI;
     }
 
