@@ -1,15 +1,19 @@
 package entity;
 
 import entity.Identificador.EntidadRelacionId;
+import entity.Identificador.EstudianteCarreraID;
 
 import javax.persistence.*;
 
+@IdClass(EstudianteCarreraID.class)
 @Entity
 public class EstudianteCarrera {
-    @EmbeddedId
-    private EntidadRelacionId id;
+//    @EmbeddedId
+//    private EntidadRelacionId id;
+    @Id
     @ManyToOne
     private Estudiante estudiante;
+    @Id
     @ManyToOne
     private Carrera carrera;
     @Column
@@ -20,8 +24,8 @@ public class EstudianteCarrera {
     private int antiguedad;
     public EstudianteCarrera(){}
 
-    public EstudianteCarrera(EntidadRelacionId id, Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
-        this.id = id;
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
+//        this.id = id;
         this.estudiante = estudiante;
         this.carrera = carrera;
         this.inscripcion = inscripcion;
@@ -29,12 +33,8 @@ public class EstudianteCarrera {
         this.antiguedad = antiguedad;
     }
 
-    public EntidadRelacionId getId() {
-        return id;
-    }
-
-    public void setId(EntidadRelacionId id) {
-        this.id = id;
+    public EstudianteCarreraID getId() {
+        return new EstudianteCarreraID(estudiante, carrera);
     }
 
     public Estudiante getEstudiante() {

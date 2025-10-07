@@ -1,13 +1,14 @@
 package entity;
 
+import entity.Identificador.Identificador;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Estudiante{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long DNI;
+    @EmbeddedId
+    private Identificador DNI;
     @Column
     private String nombre;
     @Column
@@ -27,8 +28,8 @@ public class Estudiante{
     public Estudiante() {
     }
 
-    public Estudiante(Long DNI, String nombre, String apellido, int edad, String genero, String ciudad, int LU) {
-        this.DNI = DNI;
+    public Estudiante(int DNI, String nombre, String apellido, int edad, String genero, String ciudad, int LU) {
+        this.DNI = new Identificador(DNI);
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -37,12 +38,8 @@ public class Estudiante{
         this.LU = LU;
     }
 
-    public Long getDNI() {
-        return DNI;
-    }
-
-    public void setDNI(Long DNI) {
-        this.DNI = DNI;
+    public int getDNI() {
+        return DNI.getId();
     }
 
     public String getNombre() {

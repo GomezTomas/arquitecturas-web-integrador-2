@@ -1,14 +1,15 @@
 package entity;
 
+import entity.Identificador.Identificador;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Carrera{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private Identificador id;
     @Column
     private String carrera;
     @Column
@@ -18,18 +19,14 @@ public class Carrera{
 
     public Carrera() {
     }
-    public Carrera(Long id, String carrera, int duracion) {
-        this.id = id;
+    public Carrera(int id, String carrera, int duracion) {
+        this.id = new Identificador(id);
         this.carrera = carrera;
         this.duracion = duracion;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public int getId() {
+        return id.getId();
     }
 
     public String getCarrera() {

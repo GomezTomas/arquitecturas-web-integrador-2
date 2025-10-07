@@ -4,6 +4,7 @@ import entity.Carrera;
 import entity.Estudiante;
 import entity.EstudianteCarrera;
 import entity.Identificador.EntidadRelacionId;
+import entity.Identificador.Identificador;
 import repository.EstudianteCarreraRepository;
 
 import javax.persistence.EntityManager;
@@ -29,12 +30,19 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
     @Override
     public void create(EstudianteCarrera ec) {
         em.getTransaction().begin();
-        em.persist(ec);
+        try{
+            em.persist(ec);
+        } catch (Exception ex) {
+            Estudiante e = ec.getEstudiante();
+            Carrera c = ec.getCarrera();
+            String salida = "El estudiante dni " + e.getDNI() + " se encuentra matriculado en la carrera " + c.getCarrera();
+            System.out.println(salida);
+        }
         em.getTransaction().commit();
     }
 
     @Override
-    public EstudianteCarrera findById(int id) {
+    public EstudianteCarrera findById(Identificador id) {
         em.getTransaction().begin();
         EstudianteCarrera ec = em.find(EstudianteCarrera.class, id);
         em.getTransaction().commit();
@@ -55,7 +63,7 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
         em.getTransaction().commit();
     }
     public void matricular(Estudiante estudiante, Carrera carrera){
-        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(new EntidadRelacionId(estudiante.getDNI(), carrera.getId()), estudiante, carrera, 2025,0,0);
+        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera, 2025,0,0);
         em.getTransaction().begin();
         em.persist(estudianteCarrera);
         em.getTransaction().commit();

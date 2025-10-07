@@ -2,6 +2,7 @@ package repository.implementacion;
 
 import entity.Carrera;
 import entity.Estudiante;
+import entity.Identificador.Identificador;
 import repository.EstudianteRepository;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 
 
     @Override
-    public Estudiante findById(int id) {
+    public Estudiante findById(Identificador id) {
         em.getTransaction().begin();
         Estudiante estudiante = em.find(Estudiante.class, id);
         em.getTransaction().commit();

@@ -3,6 +3,7 @@ package helper;
 import entity.Carrera;
 import entity.Estudiante;
 import entity.EstudianteCarrera;
+import entity.Identificador.Identificador;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -99,7 +100,7 @@ public class CSVReader {
         for(CSVRecord row : getData("estudianteCarrera.csv")) {
             //id,id_estudiante,id_carrera,inscripcion,graduacion,antiguedad
             if(row.size() >= 6) {
-                String idString = row.get(0);
+//                String idString = row.get(0);
                 String dniString = row.get(1);
                 String id_carreraString = row.get(2);
                 String anio_inicioString = row.get(3);
@@ -107,17 +108,21 @@ public class CSVReader {
                 String antiguedadString = row.get(5);
                 if(!dniString.isEmpty() && !id_carreraString.isEmpty() && !anio_inicioString.isEmpty() && !anio_finString.isEmpty()) {
                     try {
-                        int id =  Integer.parseInt(idString);
+//                        int id =  Integer.parseInt(idString);
                         int dni = Integer.parseInt(dniString);
                         int id_carrera = Integer.parseInt(id_carreraString);
                         int anio_inicio = Integer.parseInt(anio_inicioString);
                         int anio_fin = Integer.parseInt(anio_finString);
                         int antiguedad = Integer.parseInt(antiguedadString);
 
-                        Estudiante estudiante = er.findById(dni);
-                        Carrera carrera = cr.findById(id_carrera);
-                        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(id, estudiante, carrera, anio_inicio, anio_fin, antiguedad);
-                        ecr.create(estudianteCarrera);
+                        Estudiante estudiante = er.findById(new Identificador(dni));
+                        Carrera carrera = cr.findById(new Identificador(id_carrera));
+                        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera, anio_inicio, anio_fin, antiguedad);
+//                        try {
+                            ecr.create(estudianteCarrera);
+//                        } catch (Exception e) {
+//                            System.out.println("test");
+//                        }
 
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
