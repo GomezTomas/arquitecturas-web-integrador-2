@@ -3,6 +3,7 @@ package service;
 import DTO.EstudianteDTO;
 import DTO.CarerraDTO;
 
+import DTO.ReporteDTO;
 import entity.Carrera;
 import entity.Estudiante;
 import entity.Identificador.EstudianteCarreraID;
@@ -40,7 +41,6 @@ public class Servicios {
             throw new RuntimeException(e);
         }
     }
-    //TODO
     //a) dar de alta un estudiante
     public void altaEstudiante(Estudiante estudiante){
         er.darDeAlta(estudiante);
@@ -83,7 +83,6 @@ public class Servicios {
     public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero){
         return er.obtenerEstudiantesPorGenero(genero);
     }
-    //TODO
     //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     public List<CarerraDTO> obtenerCarrerasConEstudiantesInscriptos(){
         return cr.obtenerCarrerasConEstudiantesInscriptos();
@@ -91,6 +90,10 @@ public class Servicios {
     //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     public List<EstudianteDTO> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
         return er.obtenerEstudiantesPorCarreraCiudad(carrera, ciudad);
+    }
+
+    public List<ReporteDTO> generarReporte(){
+        return cr.generarReporte();
     }
 
 }

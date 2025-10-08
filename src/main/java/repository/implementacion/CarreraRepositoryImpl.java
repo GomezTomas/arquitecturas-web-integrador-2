@@ -1,6 +1,8 @@
 package repository.implementacion;
 
 import DTO.CarerraDTO;
+import DTO.CarreraInfoDTO;
+import DTO.ReporteDTO;
 import entity.Carrera;
 import entity.Identificador.Identificador;
 import repository.CarreraRepository;
@@ -57,7 +59,7 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 
     //recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     public List<CarerraDTO> obtenerCarrerasConEstudiantesInscriptos() {
-        String query = "SELECT c.carrera, COUNT(ec) FROM Carrera c JOIN EstudianteCarrera ec ON ec.carrera.id ORDER BY COUNT(ec) DESC ";
+        String query = "SELECT c.carrera, COUNT(c.carrera) FROM Carrera c JOIN EstudianteCarrera ec ON ec.carrera.id = c.id GROUP BY c.carrera ORDER BY COUNT(c.carrera) DESC ";
         Query q = em.createQuery(query);
         List<Object[]> resultados = q.getResultList();
         List<CarerraDTO> carrerasDTO = new ArrayList<>();
@@ -66,8 +68,47 @@ public class CarreraRepositoryImpl implements CarreraRepository {
             Long cantidad = (Long) fila[1]; // COUNT devuelve Long
             carrerasDTO.add(new CarerraDTO(nombreCarrera, cantidad.intValue()));
         }
-
         return carrerasDTO;
     }
 
+    public List<ReporteDTO> generarReporte() {
+        List<Carrera> carreras = em.createQuery("SELECT c FROM Carrera c ORDER BY c.carrera", Carrera.class).getResultList();
+        List<ReporteDTO> reportes = new ArrayList<>();
+
+        for(Carrera carrera : carreras){
+            ReporteDTO reporte = new ReporteDTO(carrera.getCarrera());
+
+            String inscripcionJQPL = "SELECT ec.inscripcion, COUNT(ec) " +
+                    "FROM EstudianteCarrera ec " +
+                    "WHERE ec.carrera = :carrera " +
+                    "GROUP BY ec.inscripcion " +
+                    "ORDER BY ec.inscripcion";
+
+            String egresadosJPQL = "SELECT ec.graduacion, COUNT(ec) " +
+                    "FROM EstudianteCarrera ec " +
+                    "WHERE ec.carrera = :carrera AND ec.graduacion <> 0" +
+                    "GROUP BY ec.graduacion " +
+                    "ORDER BY ec.graduacion";
+
+            List<Object[]> inscriptosList = em.createQuery(inscripcionJQPL, Object[].class).setParameter("carrera", carrera).getResultList();
+            List<Object[]> esgresadosList = em.createQuery(egresadosJPQL, Object[].class).setParameter("carrera", carrera).getResultList();
+            for (Object[] resultado : inscriptosList){
+                int anio = (Integer) resultado[0];
+                int inscriptos = ((Number) resultado[1]).intValue();
+                reporte.getInfoPorAnio().put(anio, new CarreraInfoDTO(inscriptos));
+            }
+            for (Object[] resultado : esgresadosList){
+                int anio = (Integer) resultado[0];
+                int egresados = ((Number) resultado[1]).intValue();
+                CarreraInfoDTO c = reporte.getInfoPorAnio().get(anio);
+                if (c == null){
+                    c = new CarreraInfoDTO(0);
+                }
+                c.setEgresados(egresados);
+                reporte.getInfoPorAnio().put(anio, c);
+            }
+            reportes.add(reporte);
+        }
+        return reportes;
+    }
 }
