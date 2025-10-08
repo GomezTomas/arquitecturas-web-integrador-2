@@ -3,6 +3,8 @@ package service;
 import DTO.EstudianteDTO;
 import entity.Carrera;
 import entity.Estudiante;
+import entity.Identificador.EstudianteCarreraID;
+import entity.Identificador.Identificador;
 import helper.CSVReader;
 import helper.EntityManagerHelper;
 import repository.CarreraRepository;
@@ -41,15 +43,19 @@ public class Servicios {
     public void altaEstudiante(Estudiante estudiante){
 //        er.darDeAlta(estudiante);
     }
-    //TODO
     //b) matricular un estudiante en una carrera
-    public void matricularEstudiante(Estudiante estudiante, Carrera carrera){
-//        ecr.matricular(estudiante, carrera);
+    public void matricularEstudiante(int idEstudiante, int idCarrera){
+        Estudiante e = er.findById(new Identificador(idEstudiante));
+        Carrera c = cr.findById(new Identificador(idCarrera));
+        EstudianteCarreraID ecid = new EstudianteCarreraID(e, c);
+        if (ecr.findById(ecid) == null){
+            ecr.matricular(e, c);
+        } else {
+            System.out.println("el estudiante se encuentra matriculado");
+        }
     }
     //c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
     public List<EstudianteDTO> obtenerEstudiantesOrdenados(String orden){
-        //TODO CHECK
-        //chequear que el orden sea posible, sino ordenar por apellido.
         String[] criterios = {"DNI","nombre", "apellido", "edad", "genero", "ciudad", "LU"};
         String ordenFinal = "apellido";
         for(String criterio : criterios){
