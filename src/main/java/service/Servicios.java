@@ -43,7 +43,7 @@ public class Servicios {
     //TODO
     //a) dar de alta un estudiante
     public void altaEstudiante(Estudiante estudiante){
-//        er.darDeAlta(estudiante);
+        er.darDeAlta(estudiante);
     }
     //b) matricular un estudiante en una carrera
     public void matricularEstudiante(int idEstudiante, int idCarrera){
@@ -52,6 +52,7 @@ public class Servicios {
         EstudianteCarreraID ecid = new EstudianteCarreraID(e, c);
         if (ecr.findById(ecid) == null){
             ecr.matricular(e, c);
+            System.out.println("el estudiante fue matriculado exitosamente");
         } else {
             System.out.println("el estudiante se encuentra matriculado");
         }
@@ -71,12 +72,13 @@ public class Servicios {
     public List<EstudianteDTO> obtenerEstudiantesOrdenados(){
        return  obtenerEstudiantesOrdenados("apellido");
     }
-    //TODO
+
     //d) recuperar un estudiante, en base a su número de libreta universitaria.
-    public Estudiante obtenerEstudiantePorLU(int lu){
-//        return er.findByLU(lu);'
-        return null;
+    public EstudianteDTO obtenerEstudiantePorLU(int lu){
+        return er.findByLU(lu);
     }
+
+
     //e) recuperar todos los estudiantes, en base a su género.
     public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero){
         return er.obtenerEstudiantesPorGenero(genero);
@@ -87,7 +89,7 @@ public class Servicios {
         return cr.obtenerCarrerasConEstudiantesInscriptos();
     }
     //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-    public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
+    public List<EstudianteDTO> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
         return er.obtenerEstudiantesPorCarreraCiudad(carrera, ciudad);
     }
 
