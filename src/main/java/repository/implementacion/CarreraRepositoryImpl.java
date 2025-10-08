@@ -1,10 +1,14 @@
 package repository.implementacion;
 
+import DTO.CarerraDTO;
 import entity.Carrera;
 import entity.Identificador.Identificador;
 import repository.CarreraRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarreraRepositoryImpl implements CarreraRepository {
 
@@ -50,4 +54,20 @@ public class CarreraRepositoryImpl implements CarreraRepository {
         em.merge(carrera);
         em.getTransaction().commit();
     }
+
+    //recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
+    public List<CarerraDTO> obtenerCarrerasConEstudiantesInscriptos() {
+        String query = "SELECT c.carrera, COUNT(ec) FROM Carrera c JOIN EstudianteCarrera ec ON ec.carrera.id ORDER BY COUNT(ec) DESC ";
+        Query q = em.createQuery(query);
+        List<Object[]> resultados = q.getResultList();
+        List<CarerraDTO> carrerasDTO = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            String nombreCarrera = (String) fila[0];
+            Long cantidad = (Long) fila[1]; // COUNT devuelve Long
+            carrerasDTO.add(new CarerraDTO(nombreCarrera, cantidad.intValue()));
+        }
+
+        return carrerasDTO;
+    }
+
 }

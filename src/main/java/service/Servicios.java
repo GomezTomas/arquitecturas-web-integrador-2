@@ -1,6 +1,8 @@
 package service;
 
 import DTO.EstudianteDTO;
+import DTO.CarerraDTO;
+
 import entity.Carrera;
 import entity.Estudiante;
 import entity.Identificador.EstudianteCarreraID;
@@ -81,9 +83,8 @@ public class Servicios {
     }
     //TODO
     //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
-    public List<Carrera> obtenerCarrerasConEstudiantesInscriptos(){
-//        return cr.carrerasConEstudiantes();
-        return null;
+    public List<CarerraDTO> obtenerCarrerasConEstudiantesInscriptos(){
+        return cr.obtenerCarrerasConEstudiantesInscriptos();
     }
     //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
