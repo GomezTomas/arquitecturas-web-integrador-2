@@ -41,7 +41,7 @@ public class Servicios {
     //TODO
     //a) dar de alta un estudiante
     public void altaEstudiante(Estudiante estudiante){
-//        er.darDeAlta(estudiante);
+        er.darDeAlta(estudiante);
     }
     //b) matricular un estudiante en una carrera
     public void matricularEstudiante(int idEstudiante, int idCarrera){
@@ -70,12 +70,13 @@ public class Servicios {
     public List<EstudianteDTO> obtenerEstudiantesOrdenados(){
        return  obtenerEstudiantesOrdenados("apellido");
     }
-    //TODO
+
     //d) recuperar un estudiante, en base a su número de libreta universitaria.
-    public Estudiante obtenerEstudiantePorLU(int lu){
-//        return er.findByLU(lu);'
-        return null;
+    public EstudianteDTO obtenerEstudiantePorLU(int lu){
+        return er.findByLU(lu);
     }
+
+
     //e) recuperar todos los estudiantes, en base a su género.
     public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero){
         return er.obtenerEstudiantesPorGenero(genero);

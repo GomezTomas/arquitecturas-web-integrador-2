@@ -89,4 +89,17 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         }
         return estudiantesDTO;
     }
+
+
+    public EstudianteDTO findByLU(int LU){
+        String jpql = "SELECT e FROM Estudiante e WHERE LU = :LU";
+        Estudiante e = em.createQuery(jpql, Estudiante.class).setParameter("LU", LU).getSingleResult();
+        EstudianteDTO dto = new EstudianteDTO(e.getNombre(), e.getApellido());
+        return  dto;
+    }
+
+    @Override
+    public void darDeAlta(Estudiante estudiante) {
+        create(estudiante);
+    }
 }
