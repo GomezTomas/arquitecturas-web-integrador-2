@@ -50,6 +50,7 @@ public class Servicios {
         EstudianteCarreraID ecid = new EstudianteCarreraID(e, c);
         if (ecr.findById(ecid) == null){
             ecr.matricular(e, c);
+            System.out.println("el estudiante fue matriculado exitosamente");
         } else {
             System.out.println("el estudiante se encuentra matriculado");
         }
@@ -86,7 +87,7 @@ public class Servicios {
         return null;
     }
     //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-    public List<Estudiante> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
+    public List<EstudianteDTO> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad){
         return er.obtenerEstudiantesPorCarreraCiudad(carrera, ciudad);
     }
 
