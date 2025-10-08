@@ -21,16 +21,4 @@ public class ReporteDTO {
     public Map<Integer, CarreraInfoDTO> getInfoPorAnio() {
         return infoPorAnio;
     }
-
-    public void setInfoPorAnio(Map<Integer, CarreraInfoDTO> infoPorAnio) {
-        this.infoPorAnio = infoPorAnio;
-    }
-
-    public String getNombreCarrera() {
-        return nombreCarrera;
-    }
-
-    public void setNombreCarrera(String nombreCarrera) {
-        this.nombreCarrera = nombreCarrera;
-    }
 }

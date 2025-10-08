@@ -7,7 +7,6 @@ import entity.Identificador.Identificador;
 import repository.EstudianteRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;

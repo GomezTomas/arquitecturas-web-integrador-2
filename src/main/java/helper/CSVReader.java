@@ -17,13 +17,11 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class CSVReader {
-    private EntityManager em;
     private CarreraRepository cr;
     private EstudianteRepository er;
     private EstudianteCarreraRepository ecr;
 
-    public CSVReader(EntityManager em, CarreraRepository cr, EstudianteRepository er, EstudianteCarreraRepository ecr) {
-        this.em = em;
+    public CSVReader(CarreraRepository cr, EstudianteRepository er, EstudianteCarreraRepository ecr) {
         this.cr = cr;
         this.er = er;
         this.ecr = ecr;
@@ -41,11 +39,9 @@ public class CSVReader {
 
     public void cargarDatos() throws IOException {
         try{
-//            em.getTransaction().begin();
             insertEstudiantes();
             insertCarreras();
             insertMatriculas();
-//            em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,7 +74,6 @@ public class CSVReader {
 
     private void insertCarreras() throws IOException {
         for (CSVRecord row : getData("carreras.csv")) {
-            //id_carrera,nombre, duracion
             if (row.size() >= 3) {
                 String id_carreraString = row.get(0);
                 String nombre = row.get(1);
@@ -98,9 +93,7 @@ public class CSVReader {
     }
     private void insertMatriculas() throws IOException {
         for(CSVRecord row : getData("estudianteCarrera.csv")) {
-            //id,id_estudiante,id_carrera,inscripcion,graduacion,antiguedad
             if(row.size() >= 6) {
-//                String idString = row.get(0);
                 String dniString = row.get(1);
                 String id_carreraString = row.get(2);
                 String anio_inicioString = row.get(3);
@@ -108,7 +101,6 @@ public class CSVReader {
                 String antiguedadString = row.get(5);
                 if(!dniString.isEmpty() && !id_carreraString.isEmpty() && !anio_inicioString.isEmpty() && !anio_finString.isEmpty()) {
                     try {
-//                        int id =  Integer.parseInt(idString);
                         int dni = Integer.parseInt(dniString);
                         int id_carrera = Integer.parseInt(id_carreraString);
                         int anio_inicio = Integer.parseInt(anio_inicioString);
@@ -118,12 +110,7 @@ public class CSVReader {
                         Estudiante estudiante = er.findById(new Identificador(dni));
                         Carrera carrera = cr.findById(new Identificador(id_carrera));
                         EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera, anio_inicio, anio_fin, antiguedad);
-//                        try {
                             ecr.create(estudianteCarrera);
-//                        } catch (Exception e) {
-//                            System.out.println("test");
-//                        }
-
                     } catch (NumberFormatException e) {
                         System.err.println("Error de formato en datos de dirección: " + e.getMessage());
                     }

@@ -34,7 +34,7 @@ public class Servicios {
     }
 
     public void cargarDatos() {
-        CSVReader csvReader = new CSVReader(em, cr, er, ecr);
+        CSVReader csvReader = new CSVReader(cr, er, ecr);
         try {
             csvReader.cargarDatos();
         } catch (Exception e) {
@@ -43,7 +43,11 @@ public class Servicios {
     }
     //a) dar de alta un estudiante
     public void altaEstudiante(Estudiante estudiante){
-        er.darDeAlta(estudiante);
+        try{
+            er.darDeAlta(estudiante);
+        } catch (Exception e) {
+            System.out.println("El estudiante ya existe");
+        }
     }
     //b) matricular un estudiante en una carrera
     public void matricularEstudiante(int idEstudiante, int idCarrera){

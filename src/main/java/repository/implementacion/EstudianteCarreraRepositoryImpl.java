@@ -3,13 +3,10 @@ package repository.implementacion;
 import entity.Carrera;
 import entity.Estudiante;
 import entity.EstudianteCarrera;
-import entity.Identificador.EntidadRelacionId;
 import entity.Identificador.Identificador;
 import repository.EstudianteCarreraRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraRepository {
@@ -68,15 +65,4 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
         em.persist(estudianteCarrera);
         em.getTransaction().commit();
     }
-    public List<Carrera> getCarrerasConEstudiantes(){
-
-        String jpql = """
-        SELECT DISTINCT c
-        FROM Carrera c
-        JOIN c.carrera i
-    """;
-        return em.createQuery(jpql, Carrera.class)
-                .getResultList();
-    }
-
 }

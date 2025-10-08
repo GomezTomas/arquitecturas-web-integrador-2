@@ -11,7 +11,5 @@ public interface EstudianteRepository extends Repository<Estudiante> {
     List<EstudianteDTO> obtenerEstudiantesOrdenados(String orden);
     EstudianteDTO findByLU(int lu);
     List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero);
-//    List<Estudiante> findByCarreraCiudad(Carrera carrera, String ciudad);
-//g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     List<EstudianteDTO> obtenerEstudiantesPorCarreraCiudad(Carrera carrera, String ciudad);
 }

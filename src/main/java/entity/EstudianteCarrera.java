@@ -1,6 +1,5 @@
 package entity;
 
-import entity.Identificador.EntidadRelacionId;
 import entity.Identificador.EstudianteCarreraID;
 
 import javax.persistence.*;
@@ -8,8 +7,6 @@ import javax.persistence.*;
 @IdClass(EstudianteCarreraID.class)
 @Entity
 public class EstudianteCarrera {
-//    @EmbeddedId
-//    private EntidadRelacionId id;
     @Id
     @ManyToOne
     private Estudiante estudiante;
@@ -25,7 +22,6 @@ public class EstudianteCarrera {
     public EstudianteCarrera(){}
 
     public EstudianteCarrera(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
-//        this.id = id;
         this.estudiante = estudiante;
         this.carrera = carrera;
         this.inscripcion = inscripcion;
